@@ -48,6 +48,12 @@ Usage
   linkedin.people.me(['id', 'first-name', 'last-name','public-profile-url','picture-url','positions','projects','skills']
   
   ```
+
+Features
+========
+- [x] Export simple data from "me"
+- [ ] Export more data
+- [ ] Integrate with Grunt
   
 References
 ==========
