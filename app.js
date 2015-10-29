@@ -37,7 +37,18 @@ app.get('/oauth/linkedin/callback', function(req, res) {
 app.get('/export', function(req, res) {
 	var response = {};
 	linkedin = getLinkedinClient();
-	linkedin.people.me(['id', 'first-name', 'last-name','public-profile-url','picture-url','positions','projects','skills'],function(err, $in) {
+	linkedin.people.me(['id', 'first-name', 'last-name', 'maiden-name',
+            'formatted-name', 'headline', 'location',
+            'industry', 'num-connections', 'num-connections-capped',
+            'summary', 'specialties', 'positions', 'picture-url','picture-urls::(original)',
+            'email-address', 'last-modified-timestamp', 'associations', 'interests',
+            'publications', 'patents', 'languages', 'skills', 'certifications',
+            'educations', 'courses', 'volunteer', 'num-recommenders',
+            'recommendations-received', 'mfeed-rss-url', 'following', 'job-bookmarks',
+            'suggestions', 'date-of-birth', 'related-profile-views', 'honors-awards',
+            'phone-numbers', 'bound-account-types', 'im-accounts', 'main-address',
+            'twitter-accounts', 'primary-twitter-account', 'connections', 'group-memberships',
+            'network', 'public-profile-url'],function(err, $in) {
 		storeLinkedinInfo($in);
 		res.send('');
 
