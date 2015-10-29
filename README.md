@@ -34,7 +34,9 @@ From the [LinkedIn FAQ](https://developer.linkedin.com/support/faq):
 > ID` (otherwise known as API Key/ID or Consumer Key/ID) listed in the
 > "Authentication" side nav link, underneath the header "Authentication Keys".
 
-Put your API secret into config.json as the value for `"secret"`.
+Put your API secret into `config.json` as the value for `"secret"`. Put your
+Client_ID into `config.json` as the value for `"api"` (which is actually the
+client id, confusingly)
 
 Usage
 =====
