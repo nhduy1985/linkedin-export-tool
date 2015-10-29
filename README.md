@@ -16,6 +16,7 @@ Configuration
 =============
 
 ```
+mkdir export
 cp config.json.dist config.json
 vim config.json
 ```
