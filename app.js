@@ -14,24 +14,26 @@ app.get('/oauth/linkedin', function(req, res) {
 });
 
 app.get('/oauth/linkedin/callback', function(req, res) {
-    Linkedin.auth.getAccessToken(res, req.query.code, function(err, results) {
-        if ( err )
-            return console.error(err);
+	Linkedin.auth.getAccessToken(res, req.query.code, req.query.state, function(err, results) {
+		if ( err ) {
+			return console.error(err);
+		}
 
-        /**
-         * Results have something like:
-         * {"expires_in":5184000,"access_token":". . . ."}
-         */
-		fs.writeFile(linkedin_file, results, function(err) {
-			if(err) {
-			  console.log(err);
+		/**
+		* Results have something like:
+		* {"expires_in":5184000,"access_token":". . . ."}
+		*/
+		console.log(results);
+		var resultsString = JSON.stringify(results);
+		fs.writeFile(linkedin_file, resultsString, function(err) {
+			if (err) {
+				console.log(err);
 			} else {
-			  console.log("JSON saved to " + linkedin_file);
+				console.log("JSON saved to " + linkedin_file);
 			}
 		});
-        console.log(results);
-        return res.redirect('/');
-    });
+		return res.redirect('/export');
+	});
 });
 
 app.get('/export', function(req, res) {
@@ -58,7 +60,7 @@ app.get('/export', function(req, res) {
 app.get('/test', function(req, res) {
 	var response = {};
 	linkedin = getLinkedinClient();
-	linkedin.people.me(['skills','endorsements'],function(err, $in) {
+	linkedin.people.me(['skills','headline'],function(err, $in) {
 		res.send($in);
 
 	});
