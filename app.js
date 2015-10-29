@@ -10,7 +10,7 @@ var linkedin_export_file = config.application.export_folder + "/linkedin.json";
 
 app.get('/oauth/linkedin', function(req, res) {
     // This will ask for permisssions etc and redirect to callback url.
-    Linkedin.auth.authorize(res, ['r_basicprofile', 'r_fullprofile', 'r_emailaddress', 'r_network', 'r_contactinfo', 'rw_nus', 'rw_groups', 'w_messages']);
+    Linkedin.auth.authorize(res, ['r_basicprofile']);
 });
 
 app.get('/oauth/linkedin/callback', function(req, res) {
@@ -28,7 +28,7 @@ app.get('/oauth/linkedin/callback', function(req, res) {
 			} else {
 			  console.log("JSON saved to " + linkedin_file);
 			}
-		}); 
+		});
         console.log(results);
         return res.redirect('/');
     });
@@ -36,26 +36,26 @@ app.get('/oauth/linkedin/callback', function(req, res) {
 
 app.get('/export', function(req, res) {
 	var response = {};
-	linkedin = getLinkedinClient();	
-	linkedin.people.me(['id', 'first-name', 'last-name','public-profile-url','picture-url','positions','projects','skills'],function(err, $in) {		
+	linkedin = getLinkedinClient();
+	linkedin.people.me(['id', 'first-name', 'last-name','public-profile-url','picture-url','positions','projects','skills'],function(err, $in) {
 		storeLinkedinInfo($in);
 		res.send('');
-		
+
 	});
 });
 
 app.get('/test', function(req, res) {
 	var response = {};
-	linkedin = getLinkedinClient();	
-	linkedin.people.me(['skills','endorsements'],function(err, $in) {		
+	linkedin = getLinkedinClient();
+	linkedin.people.me(['skills','endorsements'],function(err, $in) {
 		res.send($in);
-		
+
 	});
 });
 
-function getLinkedinClient() {	
+function getLinkedinClient() {
 	var configs = JSON.parse(fs.readFileSync(linkedin_file, encoding="ascii"));
-	var linkedin = Linkedin.init(configs.access_token); 
+	var linkedin = Linkedin.init(configs.access_token);
 	return linkedin;
 }
 
