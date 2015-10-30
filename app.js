@@ -10,10 +10,17 @@ var linkedin_export_file = config.application.export_folder + "/linkedin.json";
 
 app.get('/oauth/linkedin', function(req, res) {
     // This will ask for permisssions etc and redirect to callback url.
+    console.log('authorizing...');
     Linkedin.auth.authorize(res, ['r_basicprofile']);
 });
 
 app.get('/oauth/linkedin/callback', function(req, res) {
+	if (req.query.error) {
+	    console.error("LinkedIn returned an error to OAuth callback:", req.query);
+	    return;
+	}
+
+	console.log('Getting access token...');
 	Linkedin.auth.getAccessToken(res, req.query.code, req.query.state, function(err, results) {
 		if ( err ) {
 			return console.error(err);
