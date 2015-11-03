@@ -16,11 +16,33 @@ Configuration
 =============
 
 ```
+mkdir export
 cp config.json.dist config.json
 vim config.json
 ```
 
-Get Linkedin API/Secret at http://indiesphp.com/how-to-get-application-api-and-application-secret-of-linkedin/
+Get an API key:
+
+From the [LinkedIn FAQ](https://developer.linkedin.com/support/faq):
+
+> Where can I find my API key?
+>
+> Click on the [My Apps](https://www.linkedin.com/secure/developer) link in the
+> top navigation menu to manage your LinkedIn applications.
+>
+> From here, you can create a new application if you don't already have one, or
+> view the details of your existing applications.  You will find your `Client
+> ID` (otherwise known as API Key/ID or Consumer Key/ID) listed in the
+> "Authentication" side nav link, underneath the header "Authentication Keys".
+
+Add `http://localhost:3001/oauth/linkedin/callback` to the list of "Authorized
+Redirect URLs" in the "OAuth 2.0" section of the app configuration on
+LinkedIn's developer site. Without this you would get "invalid redirect_uri.
+This value must match a URL registered with the API Key."
+
+Put your API secret into `config.json` as the value for `"secret"`. Put your
+Client_ID into `config.json` as the value for `"api"` (which is actually the
+client id, confusingly)
 
 Usage
 =====
@@ -31,22 +53,16 @@ Usage
  node app.js
  ```
 
-2. Open the browser to request access authentication
-  
-  ```
-  http://localhost:3001/oauth/linkedin
-  ```
-3. Export data
+2. Open the browser to request access authentication:
+   [http://localhost:3001/oauth/linkedin](http://localhost:3001/oauth/linkedin)
 
-  ```
-  http://localhost:3001/export
-  ```
-  
+3. Export data [http://localhost:3001/export](http://localhost:3001/export)
+
   A json ``export\linkedin.json`` will be saved with data specified on
-  
+
   ```js
   linkedin.people.me(['id', 'first-name', 'last-name','public-profile-url','picture-url','positions','projects','skills']
-  
+
   ```
 
 Features
@@ -54,7 +70,7 @@ Features
 - [x] Export simple data from "me"
 - [ ] Export more data
 - [ ] Integrate with Grunt
-  
+
 References
 ==========
 

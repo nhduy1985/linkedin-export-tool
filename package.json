@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/nhduy1985/linkedin-export-tool",
   "dependencies": {
-    "fs": "0.0.1",
+    "fs": "0.0.2",
     "underscore": "^1.6.0",
     "express": "^4.4.1",
-    "node-linkedin": "^0.2.0"
+    "node-linkedin": "^0.5.1"
   }
 }
